@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                            http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+        id="springmvc" version="2.5">
+    
+    <!-- 配置 DispatcherServlet -->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 加载 SpringMVC 配置 -->
+        <init-param>
+            <!-- contextConfigLocation 定义配置文件的位置 -->
+            <!-- 如果不配置，则默认 "WEB-INF/jsp/springmvc-servlet.xml " -->
+            <param-name>contextConfigLocation</param-name>
+            <!-- <param-value>classpath:/config/springmvc.xml</param-value> -->
+            <param-value>/config/springmvc.xml</param-value>
+
+        </init-param>
+
+        <!-- 容器启动时初始化该 Servlet -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <!-- 提交给 Spring Web MVC 处理 -->
+        <!-- "/" 定义默认servlet映射, 所有请求全部由springmvc解析, 可以实现RESTful方式-->
+        <!-- 不可以使用/*, 如果配置成 /*, 返回的jsp也由springmvc解析，不对 -->
+        <!-- 对静态文件的解析不能由 springmvc 来完成 -->
+        <!-- 可以配置成 *.do, *.action, 所有请求的url扩展名为.do, .action 由springmvc解析 -->
+        <!-- "*.html" 表示拦截所有 html 的请求，静态可以吗？-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- 至此请求已经提交给Spring Web MVC框架，需要配置Spring的配置文件 -->
+    <!-- DispatcherServlet 默认加载 WEB-INF/[servlet-name]-servlet.xml 配置文件 -->
+    <!-- 即 springmvc-servlet.xml -->
+</web-app>
